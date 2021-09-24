@@ -10,7 +10,12 @@
             </div>
             <div class="selector col-12 col-md-6 col-lg-9">
                 <div>
-                    
+                    <select id="role" v-model="selected" name="role" @change="roleSelect()">
+                        <option selected disabled value="">Select a role</option>
+                        <option value="godfather">Godfather</option>
+                        <option value="mafia">Mafia</option>
+                        <option value="citizen">Citizen</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -20,9 +25,27 @@
 export default {
     data() {
         return {
+            selected: '',
             godfather: 0,
             mafia: 0,
             citizen: 0,
+        }
+    },
+    methods: {
+        roleSelect() {
+            switch (this.selected) {
+                case 'godfather':
+                    this.godfather += 1;
+                    break;
+
+                case 'mafia':
+                    this.mafia += 1;
+                    break;
+
+                case 'citizen':
+                    this.citizen += 1;
+                    break;
+            }
         }
     }
 }
