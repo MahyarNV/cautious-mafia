@@ -1,5 +1,8 @@
 <template>
-    <Header />
+    <div>
+        <Header />
+        <RoleSelector />
+    </div>
 </template>
 
 <script>
