@@ -12,10 +12,14 @@
                 <div>
                     <select id="role" v-model="selected" name="role" @change="roleSelect()">
                         <option selected disabled value="">Select a role</option>
-                        <option value="godfather">Godfather</option>
-                        <option value="mafia">Mafia</option>
-                        <option value="citizen">Citizen</option>
+                        <option v-for="option in options" :key="option.value" :value="option.value">
+                            {{ option.text }}
+                        </option>
                     </select>
+                </div>
+                <br>
+                <div>
+                    <div v-for="role in selectedRoles" :key="role.value">{{ role.text }}</div>
                 </div>
             </div>
         </div>
@@ -26,24 +30,36 @@ export default {
     data() {
         return {
             selected: '',
+            options: [
+                { text: 'Godfather', value: 'godfather' },
+                { text: 'Mafia', value: 'mafia' },
+                { text: 'Citizen', value: 'citizen' }
+            ],
+            selectedRoles: [],
             godfather: 0,
             mafia: 0,
             citizen: 0,
         }
     },
     methods: {
+        roleChanged() {
+            this.selectedRoles.push(this.options.find(x => x.value === this.selected));
+        },
         roleSelect() {
             switch (this.selected) {
                 case 'godfather':
                     this.godfather += 1;
+                    this.roleChanged();
                     break;
 
                 case 'mafia':
                     this.mafia += 1;
+                    this.roleChanged();
                     break;
 
                 case 'citizen':
                     this.citizen += 1;
+                    this.roleChanged();
                     break;
             }
         }
