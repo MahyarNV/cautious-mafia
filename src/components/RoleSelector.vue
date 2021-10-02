@@ -10,16 +10,18 @@
             </div>
             <div class="selector col-12 col-md-6 col-lg-9">
                 <div>
-                    <select id="role" v-model="selected" name="role" @change="roleSelect()">
+                    <select id="role" v-model="selected" name="role">
                         <option selected disabled value="">Select a role</option>
-                        <option v-for="option in options" :key="option.value" :value="option.value">
+                        <option v-for="option in options" :key="option.value" :value="option.value" @click="roleSelect(option.value)">
                             {{ option.text }}
                         </option>
                     </select>
                 </div>
                 <br>
                 <div>
-                    <div v-for="role in selectedRoles" :key="role.value">{{ role.text }}</div>
+                    <div v-for="role in selectedRoles" :key="role.value">
+                        {{ role.text }}  <button @click="roleSelect(role.value)">+</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,16 +41,16 @@ export default {
         }
     },
     methods: {
-        roleChanged() {
-            const role = this.options.find(x => x.value === this.selected);
-            if (!this.selectedRoles.find(x => x.value === role.value)) {
-                this.selectedRoles.push({text: role.text, value: role.value});
+        roleChanged(selected) {
+            const role = this.options.find(element => element.value === selected);
+            if (!this.selectedRoles.find(element => element.value === role.value)) {
+                this.selectedRoles.push({ text: role.text, value: role.value });
             }
         },
-        roleSelect() {
-            const role = this.options.find(element => element.value === this.selected)
+        roleSelect(selected) {
+            const role = this.options.find(element => element.value === selected)
             role.n += 1;
-            this.roleChanged();
+            this.roleChanged(selected);
         }
     }
 }
