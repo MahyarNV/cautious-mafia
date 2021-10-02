@@ -31,7 +31,6 @@
 export default {
     data() {
         return {
-            selected: '',
             options: [
                 { text: 'Godfather', value: 'godfather', n: 0 },
                 { text: 'Mafia', value: 'mafia', n: 0 },
